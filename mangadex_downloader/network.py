@@ -101,7 +101,7 @@ class requestsMangaDexSession(ModifiedSession):
     uploads_url = uploads_url
     forums_url = forums_url
 
-    """A requests session for MangaDex only. 
+    """A requests session for MangaDex only.
 
     Sending other HTTP(s) requests to other sites will break the session
     """
@@ -264,9 +264,10 @@ class requestsMangaDexSession(ModifiedSession):
             pbm.logger.info(
                 f'Failed to connect to "{netloc}", '
                 f"reason: Server throwing error code {resp.status_code}. "
-                f"Trying... (attempt: {attempt})"
+                f"Exiting program after attempt: {attempt}"
             )
-            return None
+            # Exit program stopping endless retry loop on reporting errors
+            sys.exit(1)
 
         return resp
 
